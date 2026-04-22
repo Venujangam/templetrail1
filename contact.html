@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: var(--background-gradient); color: var(--text); }
+        .contact-wrapper { max-width: 600px; margin: 4rem auto; padding: 2rem; background: var(--input-bg); border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+        .contact-wrapper h1 { text-align:center; margin-bottom:1rem; color: var(--dark); }
+        .contact-wrapper p { text-align:center; color:#555; margin-bottom:2rem; }
+        .form-group label { font-weight:600; margin-bottom:5px; display:block; }
+        .form-group input, .form-group textarea { width:100%; padding:12px 15px; border:1px solid var(--input-border); border-radius:8px; background: var(--input-bg); transition:border-color 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); outline:none; }
+        .btn { display:block; width:100%; text-align:center; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">Temple<span>Trail</span></a>
+        </div>
+    </header>
+
+    <div class="contact-wrapper">
+        <h1>Contact Us</h1>
+        <p>Have questions? We're here to help. Send us a message below.</p>
+        <form id="page-contact-form">
+            <div class="form-group">
+                <label for="page-contact-name">Full Name</label>
+                <input type="text" id="page-contact-name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="page-contact-email">Email</label>
+                <input type="email" id="page-contact-email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="page-contact-subject">Subject</label>
+                <input type="text" id="page-contact-subject" name="subject" required>
+            </div>
+            <div class="form-group">
+                <label for="page-contact-message">Message</label>
+                <textarea id="page-contact-message" name="message" rows="6" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent">Send Message</button>
+            <div id="page-contact-result" style="margin-top:15px;display:none"></div>
+        </form>
+    </div>
+
+    <script>
+        const pageForm = document.getElementById('page-contact-form');
+        if (pageForm) {
+            pageForm.addEventListener('submit', async e => {
+                e.preventDefault();
+                const resDiv = document.getElementById('page-contact-result');
+                resDiv.style.display = 'none';
+                const data = {
+                    name: document.getElementById('page-contact-name').value,
+                    email: document.getElementById('page-contact-email').value,
+                    subject: document.getElementById('page-contact-subject').value,
+                    message: document.getElementById('page-contact-message').value
+                };
+                try {
+                    const resp = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {'Content-Type':'application/json'},
+                        body: JSON.stringify(data)
+                    });
+                    const json = await resp.json();
+                    if (resp.ok) {
+                        resDiv.textContent = '✅ Message sent successfully!';
+                        resDiv.style.display = 'block';
+                        pageForm.reset();
+                    } else {
+                        resDiv.textContent = '❌ ' + (json.error||'Failed to send');
+                        resDiv.style.display = 'block';
+                    }
+                } catch(err){
+                    resDiv.textContent = '❌ Error: '+err.message;
+                    resDiv.style.display='block';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>TempleTrail - Sacred Journey Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #ec4899;
+            --text: #334155;
+        }
+        body {
+            background-color: var(--light);
+            color: var(--text);
+        }
+        .hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.9) 0%, rgba(168, 85, 247, 0.8) 50%, rgba(236, 72, 153, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1587131781386-35d8a5d7c1e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .transport-icon {
+            font-size: 2.5rem;
+        }
+        .indian-temples {
+            background: linear-gradient(135deg, #faf5ff 0%, #fef3c7 100%);
+        }
+        .world-temples {
+            background: linear-gradient(135deg, #e0e7ff 0%, #fce7f3 100%);
+        }
+        .rituals-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #faf5ff 100%);
+        }
+        .temple-card .card-img {
+            height: 240px;
+        }
+        .temple-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .temple-feature {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+        @media (max-width: 768px) {
+            .temple-features {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">Temple<span>Trail</span></a>
+            <button class="mobile-menu-btn">☰</button>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#indian-temples">Indian Temples</a></li>
+                    <li><a href="#world-temples">World Temples</a></li>
+                    <li><a href="#rituals">Rituals</a></li>
+                    <li><a href="#pilgrimage">Pilgrimage</a></li>
+                    <li><a href="#contact-form-section">Contact</a></li>
+                    <li id="auth-links"><a href="/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section class="hero">
+        <!-- rotating globe background -->
+        <div class="globe-container">
+            <div class="globe">
+                <!-- latitude lines -->
+                <div class="lat" style="top:20%; width:80%;"></div>
+                <div class="lat" style="top:35%; width:65%;"></div>
+                <div class="lat" style="top:50%; width:50%;"></div>
+                <div class="lat" style="top:65%; width:65%;"></div>
+                <div class="lat" style="top:80%; width:80%;"></div>
+                <!-- longitude lines -->
+                <div class="long" style="transform: rotateY(0deg);"></div>
+                <div class="long" style="transform: rotateY(45deg);"></div>
+                <div class="long" style="transform: rotateY(90deg);"></div>
+                <div class="long" style="transform: rotateY(135deg);"></div>
+                <div class="long" style="transform: rotateY(180deg);"></div>
+                <div class="long" style="transform: rotateY(225deg);"></div>
+                <div class="long" style="transform: rotateY(270deg);"></div>
+                <div class="long" style="transform: rotateY(315deg);"></div>
+                <!-- glowing dots -->
+                <div class="dot" style="top:30%; left:20%;"></div>
+                <div class="dot" style="top:40%; left:60%;"></div>
+                <div class="dot" style="top:50%; left:80%;"></div>
+                <div class="dot" style="top:60%; left:30%;"></div>
+                <div class="dot" style="top:35%; left:70%;"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Embark on a Sacred Journey</h1>
+            <p>Discover ancient temples, experience divine rituals, and connect with spiritual traditions across the globe</p>
+            <a href="#indian-temples" class="btn btn-accent">Explore Temples</a>
+        </div>
+    </section>
+    <div class="container">
+        <div class="search-box">
+            <div class="search-tabs">
+                <div class="search-tab active">Temples</div>
+                <div class="search-tab">Pilgrimage Tours</div>
+                <div class="search-tab">Ritual Bookings</div>
+                <div class="search-tab">Guided Tours</div>
+            </div>
+            <form class="search-form">
+                <div class="form-group">
+                    <label for="destination">Temple or Destination</label>
+                    <input type="text" id="destination" placeholder="Search temples...">
+                </div>
+                <div class="form-group">
+                    <label for="deity">Deity</label>
+                    <select id="deity">
+                        <option value="">Any Deity</option>
+                        <option value="shiva">Lord Shiva</option>
+                        <option value="vishnu">Lord Vishnu</option>
+                        <option value="devi">Goddess Devi</option>
+                        <option value="ganesha">Lord Ganesha</option>
+                        <option value="buddha">Buddha</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="travel-date">Travel Date</label>
+                    <input type="date" id="travel-date">
+                </div>
+                <div class="form-group">
+                    <label for="pilgrims">Pilgrims</label>
+                    <select id="pilgrims">
+                        <option value="1">1 Person</option>
+                        <option value="2">2 People</option>
+                        <option value="family">Family</option>
+                        <option value="group">Group (10+)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-accent">Search Temples</button>
+            </form>
+        </div>
+    </div>
+
+    <section class="section indian-temples" id="indian-temples">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sacred Temples of India</h2>
+                <p>Explore the divine abodes of India's rich spiritual heritage</p>
+            </div>
+            <div class="destinations-grid">
+                <!-- Temple Card 1 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Kashi Vishwanath Temple, Varanasi')">
+                    <div class="card-img">
+                        <img src="https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/0a/f4/7c/2f.jpg">
+                    </div>
+                    <div class="card-content">
+                        <h3>Kashi Vishwanath Temple</h3>
+                        <p>One of the most famous Hindu temples dedicated to Lord Shiva in the holy city of Varanasi.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Lord Shiva</span>
+                            <span class="temple-feature">Jyotirlinga</span>
+                            <span class="temple-feature">Ganga Aarti</span>
+                        </div>
+                        <div class="card-price">Tour from 1130/- per person</div>
+                        <button class="btn">Book Pilgrimage</button>
+                    </div>
+                </div>
+                <!-- Temple Card 2 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Tirumala Venkateswara Temple, Tirupati')">
+                    <div class="card-img">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGzQ7It5rfAIbJVlXsyBlqb6XUlCowXJ-G3POkcU7hBoExcCwWg3veCgLw4RVtMLdInX8GA5ituw7SJizFlpqr9deiNQRSSBzdoECwsI37ah_gIbbK6NVSAvqG5Tv5kUIREgwoNmA=s680-w680-h510-rw">
+                    </div>
+                    <div class="card-content">
+                        <h3>Tirumala Venkateswara Temple</h3>
+                        <p>The richest temple in the world dedicated to Lord Venkateswara, an incarnation of Vishnu.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Lord Vishnu</span>
+                            <span class="temple-feature">Laddu Prasadam</span>
+                            <span class="temple-feature">Tirupati</span>
+                        </div>
+                        <div class="card-price">Tour from 960/- per person</div>
+                        <button class="btn">Book Pilgrimage</button>
+                    </div>
+                </div>
+                <!-- Temple Card 3 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Golden Temple, Amritsar')">
+                    <div class="card-img">
+                        <img src="https://static.toiimg.com/photo/61820954.cms">
+                    </div>
+                    <div class="card-content">
+                        <h3>Golden Temple</h3>
+                        <p>The holiest Gurdwara of Sikhism, known for its stunning golden architecture and community kitchen.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Sikhism</span>
+                            <span class="temple-feature">Langar</span>
+                            <span class="temple-feature">Punjab</span>
+                        </div>
+                        <div class="card-price">Tour from 800/- per person</div>
+                        <button class="btn">Book Pilgrimage</button>
+                    </div>
+                </div>
+                <!-- Temple Card 4 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Meenakshi Temple, Madurai')">
+                    <div class="card-img">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGZIE39Vhs60mKE-UoNGj6frKhMmADRwSKPrt2Zp-06gufjR0f9cIdglU&s">
+                    </div>
+                    <div class="card-content">
+                        <h3>Meenakshi Temple</h3>
+                        <p>An ancient Hindu temple with intricate Dravidian architecture dedicated to Goddess Meenakshi.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Goddess Meenakshi</span>
+                            <span class="temple-feature">Dravidian</span>
+                            <span class="temple-feature">Tamil Nadu</span>
+                        </div>
+                        <div class="card-price">Tour from 850/- per person</div>
+                        <button class="btn">Book Pilgrimage</button>
+                    </div>
+                </div>
+                <!-- Temple Card 5 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Vaishno Devi Temple, Katra')">
+                    <div class="card-img">
+                        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/65/8a/3b/vaishno-devi-temple.jpg?w=1000&h=-1&s=1">
+                    </div>
+                    <div class="card-content">
+                        <h3>Vaishno Devi Temple</h3>
+                        <p>One of the most visited Hindu temples dedicated to Goddess Vaishno, located in Jammu.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Goddess Vaishno</span>
+                            <span class="temple-feature">Pilgrimage Cave</span>
+                            <span class="temple-feature">Jammu</span>
+                        </div>
+                        <div class="card-price">Tour from 1200/- per person</div>
+                        <button class="btn">Book Pilgrimage</button>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="indian-temples.html" class="btn">View All Indian Temples</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- World Temples Section -->
+    <section class="section world-temples" id="world-temples">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sacred Temples Worldwide</h2>
+                <p>Discover magnificent temples across different cultures and religions</p>
+            </div>
+            <div class="destinations-grid">
+                <!-- Temple Card 1 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Angkor Wat, Cambodia')">
+                    <div class="card-img">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAGBHS8mEXzqyR1ee3wOT0LCapAJ1YkH3t5Hg9QORiUpjcoYLcDeg1IU5FtD71zHx5twN0iAfvorfsaAzixmzIx5SGm3ZnKnqH4ibxkuK919Z72YYexXQR00rmmGOStT8ZcmExsB=s680-w680-h510-rw">
+                    </div>
+                    <div class="card-content">
+                        <h3>Angkor Wat</h3>
+                        <p>The largest religious monument in the world, originally constructed as a Hindu temple.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">UNESCO</span>
+                            <span class="temple-feature">Hindu/Buddhist</span>
+                            <span class="temple-feature">Cambodia</span>
+                        </div>
+                        <div class="card-price">Tour from 799/- per person</div>
+                        <button class="btn">Book Tour</button>
+                    </div>
+                </div>
+                <!-- Temple Card 2 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Pashupatinath Temple, Nepal')">
+                    <div class="card-img">
+                       <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/The_Pashupatinath_Temple_27.jpg">
+                    </div>
+                    <div class="card-content">
+                        <h3>Pashupatinath</h3>
+                        <p>One of the most sacred Hindu temples dedicated to Lord Shiva, located in Kathmandu.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Lord Shiva</span>
+                            <span class="temple-feature">Cremation</span>
+                            <span class="temple-feature">Nepal</span>
+                        </div>
+                        <div class="card-price">Tour from 499/- per person</div>
+                        <button class="btn">Book Tour</button>
+                    </div>
+                </div>
+                <!-- Temple Card 3 -->
+                <div class="destination-card temple-card" onclick="openBookingModal('Borobudur, Indonesia')">
+                    <div class="card-img">
+                        <img src="https://lh3.googleusercontent.com/gps-cs-s/APNQkAHIk1ZwyYgBfm50hUjkbjLvWWA3deQ8raF3kAGBFfBjh7boyyN9cANsUJmJfvz1cZV4EIlZY7Gw3SGkAz96d_O5aC1Izb9mFtpWsUbpEOzE8Tk9_rK610o3OK7-WEcnM4NpKnE=s680-w680-h510-rw">
+                    </div>
+                    <div class="card-content">
+                        <h3>Borobudur</h3>
+                        <p>The world's largest Buddhist temple, featuring nine stacked platforms and 504 Buddha statues.</p>
+                        <div class="temple-features">
+                            <span class="temple-feature">Buddhist</span>
+                            <span class="temple-feature">UNESCO</span>
+                            <span class="temple-feature">Java</span>
+                        </div>
+                        <div class="card-price">Tour from 699/- per person</div>
+                        <button class="btn">Book Tour</button>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="world-temples.html" class="btn">View All World Temples</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rituals Section -->
+    <section class="section rituals-section" id="rituals">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sacred Rituals & Pujas</h2>
+                <p>Book traditional rituals and spiritual experiences at major temples</p>
+            </div>
+            <div class="transport-grid">
+                <!-- Ritual Card 1 -->
+                <div class="transport-card">
+                    <div class="transport-icon">🕉️</div>
+                    <h3>Ganga Aarti</h3>
+                    <p>Experience the divine evening ritual at Varanasi's Dashashwamedh Ghat.</p>
+                    <button class="btn" onclick="openBookingModal('Ganga Aarti Booking')">Book Ritual</button>
+                </div>
+                <!-- Ritual Card 2 -->
+                <div class="transport-card">
+                    <div class="transport-icon">🔔</div>
+                    <h3>Special Darshan</h3>
+                    <p>Arrange priority darshan at major temples to avoid long queues.</p>
+                    <button class="btn" onclick="openBookingModal('Special Darshan Booking')">Book Darshan</button>
+                </div>
+                <!-- Ritual Card 3 -->
+                <div class="transport-card">
+                    <div class="transport-icon">🪔</div>
+                    <h3>Abhishekam</h3>
+                    <p>Participate in the sacred bathing ritual of temple deities.</p>
+                    <button class="btn" onclick="openBookingModal('Abhishekam Booking')">Book Ritual</button>
+                </div>
+                <!-- Ritual Card 4 -->
+                <div class="transport-card">
+                    <div class="transport-icon">📿</div>
+                    <h3>Priest Services</h3>
+                    <p>Arrange for personal pujas and rituals with experienced priests.</p>
+                    <button class="btn" onclick="openBookingModal('Priest Services')">Book Service</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pilgrimage Packages -->
+    <section class="section" id="pilgrimage">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pilgrimage Tour Packages</h2>
+                <p>Complete spiritual journeys with accommodation, transport, and guided temple visits</p>
+            </div>
+            <div class="testimonials-grid">
+                <!-- Package 1 -->
+                <div class="testimonial-card">
+                    <div class="card-img" style="height: 200px; margin-bottom: 15px;">
+                        <img src="https://www.chardhamyatra.org/wp-content/themes/CharDham/images/chardham-yatra.jpg">
+                    </div>
+                    <h3>Char Dham Yatra</h3>
+                    <p>12-day pilgrimage to Yamunotri, Gangotri, Kedarnath, and Badrinath in the Himalayas.</p>
+                    <div class="card-price" style="margin: 15px 0;">From 1299/- per person</div>
+                    <button class="btn" onclick="openBookingModal('Char Dham Yatra')">Book Package</button>
+                </div>
+                <!-- Package 2 -->
+                <div class="testimonial-card">
+                    <div class="card-img" style="height: 200px; margin-bottom: 15px;">
+                        <img src="https://roadtotaste.com/wp-content/uploads/south-india-1024x682.jpg">
+                    </div>
+                    <h3>South India Temple Tour</h3>
+                    <p>10-day journey covering Meenakshi, Rameswaram, Madurai, and more ancient temples.</p>
+                    <div class="card-price" style="margin: 15px 0;">From 999/- per person</div>
+                    <button class="btn" onclick="openBookingModal('South India Temple Tour')">Book Package</button>
+                </div>
+                <!-- Package 3 -->
+                <div class="testimonial-card">
+                    <div class="card-img" style="height: 200px; margin-bottom: 15px;">
+                        <img src="https://www.peakadventuretour.com/assets/images/buddhist-circuit-banner.webp">
+                    </div>
+                    <h3>Buddhist Circuit</h3>
+                    <p>8-day pilgrimage to Lumbini, Bodhgaya, Sarnath, and Kushinagar.</p>
+                    <div class="card-price" style="margin: 15px 0;">From 899/- per person</div>
+                    <button class="btn" onclick="openBookingModal('Buddhist Circuit Tour')">Book Package</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact-form-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+                <p>Fill out the form below and we'll respond soon.</p>
+            </div>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Full Name</label>
+                    <input type="text" id="contact-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-phone">Phone</label>
+                    <input type="tel" id="contact-phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="contact-subject">Subject</label>
+                    <input type="text" id="contact-subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Message</label>
+                    <textarea id="contact-message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-accent">Send Message</button>
+            </form>
+            <div id="contact-result" style="margin-top:15px; display:none;"></div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Spiritual Journeys</h2>
+            <p>Get updates on temple festivals, pilgrimage tours, and special rituals</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Column 1 -->
+                <div class="footer-col">
+                    <h3>TempleTrail</h3>
+                    <p>Specializing in spiritual journeys and temple tourism since 2005. We help pilgrims connect with sacred sites worldwide.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">t</a>
+                        <a href="#">in</a>
+                        <a href="#">ig</a>
+                    </div>
+                </div>
+                <!-- Column 2 -->
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#indian-temples">Indian Temples</a></li>
+                        <li><a href="#world-temples">World Temples</a></li>
+                        <li><a href="#rituals">Rituals</a></li>
+                        <li><a href="#pilgrimage">Pilgrimage</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3 -->
+                <div class="footer-col">
+                    <h3>Pilgrim Support</h3>
+                    <ul>
+                        <li><a href="#">Temple Guidelines</a></li>
+                        <li><a href="#">Dress Codes</a></li>
+                        <li><a href="#">Ritual Information</a></li>
+                        <li><a href="#">Travel Tips</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <!-- Column 4 -->
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Phone: +91 555 123 4567</li>
+                        <li>Email: info@templetrail.com</li>
+                        <li>Hours: Mon-Sat 8am-8pm IST</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 TempleTrail Sacred Journeys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Book Your Spiritual Journey</h2>
+            <form id="booking-form">
+                <!-- booking message placeholder removed; redirecting to thank-you page instead -->
+                <div class="form-group">
+                    <label for="booking-destination">Temple/Package</label>
+                    <input type="text" id="booking-destination" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="travel-date">Travel Date</label>
+                    <input type="date" id="travel-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="pilgrims">Number of Pilgrims</label>
+                    <input type="number" id="pilgrims" min="1" required>
+                </div>
+                <button type="submit" class="btn btn-accent">Confirm Spiritual Journey</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Check authentication status on page load
+        window.isAuthenticated = false;
+        window.userName = '';
+        window.userEmail = '';
+        
+        fetch('/api/session')
+            .then(response => response.json())
+            .then(data => {
+                if (data.authenticated) {
+                    window.isAuthenticated = true;
+                    window.userName = data.user.full_name;
+                    window.userEmail = data.user.email;
+                    
+                    // Update auth links
+                    const authLinks = document.getElementById('auth-links');
+                    authLinks.innerHTML = `<li><a href="/api/logout">Logout (${data.user.full_name})</a></li>`;
+                }
+            })
+            .catch(err => console.log('Session check failed:', err));
+    </script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        // Search Tabs
+        const searchTabs = document.querySelectorAll('.search-tab');
+        searchTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                searchTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        // Modal Functions
+        function openBookingModal(destination) {
+            const modal = document.getElementById('booking-modal');
+            const destinationInput = document.getElementById('booking-destination');
+            destinationInput.value = destination;
+            document.getElementById('modal-title').textContent = `Book ${destination}`;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('booking-modal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+        // Booking Form Submission
+        const bookingForm = document.getElementById('booking-form');
+        const bookingMsg = document.getElementById('booking-message');
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = {
+                full_name: document.getElementById('full-name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                travel_date: document.getElementById('travel-date').value,
+                num_pilgrims: document.getElementById('pilgrims').value
+            };
+
+            try {
+                // Send data to backend API
+                const response = await fetch('/api/bookings', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // redirect to standalone confirmation page
+                    window.location.href = 'thanks.html';
+                } else {
+                    // show an alert on failure
+                    const result = await response.json();
+                    alert('❌ Booking failed: ' + (result.error || 'Please try again.'));
+                }
+            } catch (error) {
+                alert('❌ Error submitting booking: ' + error.message);
+            }
+        });
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    navMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
