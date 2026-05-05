@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { initDatabase } = require('./init_db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -308,6 +309,7 @@ app.post('/api/contact', (req, res) => {
 });
 
 // Start server
+initDatabase();
 app.listen(PORT, () => {
     console.log(`✅ TempleTrail server running on http://localhost:${PORT}`);
 });
