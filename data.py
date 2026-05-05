@@ -3,10 +3,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from datetime import datetime
 import os
+from init_db import init_database
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 app.secret_key = os.environ.get('FLASK_SECRET', 'change-this-to-a-secret')
 DB_FILE = 'templetrail.db'
+
+# Initialize DB on startup
+init_database()
 
 # simple inline templates (could be moved to separate files)
 login_html = '''
@@ -288,4 +292,5 @@ def contact_page():
     return send_from_directory('.', 'contact.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
