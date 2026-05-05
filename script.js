@@ -1,3 +1,21 @@
+// Check auth status from server on page load
+async function checkAuthStatus() {
+    try {
+        const resp = await fetch('/api/session');
+        const data = await resp.json();
+        window.isAuthenticated = data.authenticated;
+        if (data.authenticated) {
+            window.userName = data.user.full_name;
+            window.userEmail = data.user.email;
+        }
+    } catch (e) {
+        window.isAuthenticated = false;
+    }
+}
+
+// Initialize auth check
+checkAuthStatus();
+
 // Logout handler
 const logoutLink = document.querySelector('a[href="/api/logout"]');
 if (logoutLink) {
@@ -32,9 +50,10 @@ if (searchTabs.length > 0) {
         });
     });
 }
-function openBookingModal(destination) {
-    // require login
-    if (typeof window.isAuthenticated === 'undefined' || !window.isAuthenticated) {
+async function openBookingModal(destination) {
+    // re-check auth from server to be sure
+    await checkAuthStatus();
+    if (!window.isAuthenticated) {
         window.location.href = '/login';
         return;
     }

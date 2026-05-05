@@ -160,6 +160,24 @@ def logout():
 def js():
     return send_from_directory('.', 'script.js')
 
+@app.route('/api/session')
+def api_session():
+    if session.get('user_id'):
+        return jsonify({
+            'authenticated': True,
+            'user': {
+                'id': session['user_id'],
+                'full_name': session.get('user_name', ''),
+                'email': session.get('user_email', '')
+            }
+        })
+    return jsonify({'authenticated': False})
+
+@app.route('/api/logout')
+def api_logout():
+    session.clear()
+    return jsonify({'success': True})
+
 @app.route('/api/bookings', methods=['POST'])
 def create_booking():
     # require login to make a booking
